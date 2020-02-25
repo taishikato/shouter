@@ -16,7 +16,7 @@ const GoogleLoginButton = styled.div`
 const GoogleIconContainer = styled.div`
     position: absolute;
     top: 8px;
-    left: 30px;
+    left: 5%;
     height: 51px;
     width: 51px;
 `;
@@ -29,6 +29,9 @@ const TextBox = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    @media screen and (max-width:320px) {
+        font-size: 18px;
+    }
 `;
 
 export const StyledGoogleLoginButton = () => {

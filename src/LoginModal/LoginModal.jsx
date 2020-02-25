@@ -6,12 +6,12 @@ import { StyledMain as Main } from './Main/Main';
 
 const LoginModal = styled.div`
     background-color: #0C2631;
-    min-width:480px;
     display: flex;
     justify-content: center;
-    @media screen and (min-width:480px) and ( max-width:1024px) { 
+    @media screen and (max-width:1024px) { 
         height: 100vh;
         width: 100vw;
+        overflow: hidden;
     }
     @media screen and (min-width:1024px) {
         height: 553px;
@@ -20,11 +20,22 @@ const LoginModal = styled.div`
     }
 `
 const Container = styled.div`
-    @media screen and (min-width:480px) and ( max-width:1024px) {
-        width: 554px;
+    @media screen and ( max-width:1024px) {
+        max-width: 594px;
+        width: 100%;
+    }
+    @media screen and (min-width:1024px) {
+        width: 594px;
+    }
+`
+const MarginContainer = styled.div`
+    @media screen and ( max-width:1024px) {
+        max-width: 554px;
+        margin: 0 20px;
     }
     @media screen and (min-width:1024px) {
         width: 554px;
+        margin: 0 20px;
     }
 `
 
@@ -32,8 +43,10 @@ export const StyledLoginModal = () => {
     return (
         <LoginModal>
             <Container>
-                <Header />
-                <Main />
+                <MarginContainer>
+                    <Header />
+                    <Main />
+                </MarginContainer>
             </Container>
         </LoginModal>
     );

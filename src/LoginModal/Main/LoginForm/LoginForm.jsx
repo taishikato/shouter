@@ -71,7 +71,7 @@ export const StyledLoginForm = () => {
             <FormContainer>
                 <InputField>
                     <InputLabelContainer>
-                        <label for="username">
+                        <label htmlFor="username">
                             <InputLabelText>Username</InputLabelText>
                         </label>
                     </InputLabelContainer>
@@ -80,7 +80,7 @@ export const StyledLoginForm = () => {
                     </InputContainer>
                 </InputField>
                 <InputField>
-                    <InputLabelContainer for="password">
+                    <InputLabelContainer htmlFor="password">
                         <InputLabelText>Password</InputLabelText>
                     </InputLabelContainer>
                     <InputContainer>
