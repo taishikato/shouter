@@ -1,35 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
-const IndividualPost = () => {
-  const [input, setInput] = useState("");
-  const [shouts, setShout] = useState([]);
-
-  const addShout = () => {
-    setShout([...shouts, input]);
-    setInput("");
-  };
-
+const postForm = () => {
   return (
     <Container>
       <UserIcon src="#" alt="user-img" />
       <ShoutArea
         placeholder="What's Up?"
-        onChange={e => setInput(e.target.value)}
-        value={input}
       />
       <SmallIcons>
         <UploadIcon src="#" alt="upload" />
         <EmojiIcon src="#" alt="emoji" />
       </SmallIcons>
-      <Button onClick={() => addShout()} disabled={!input}>
+      <Button >
         shout
       </Button>
     </Container>
   );
 };
 
-export default IndividualPost;
+export default postForm;
 
 const Container = styled.div`
   position: relative;
