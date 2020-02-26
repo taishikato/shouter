@@ -52,10 +52,12 @@ const Input = styled.input`
         outline: none;
     }
     color: #FFFFFF;
+    width: 92%;
 `;
 
 const LoginButtonContainer = styled.div`
     background-color: #29ABE2;
+    color: #FFFFFF;
     height: 58px;
     font-weight: bold;
     font-size: 18px;

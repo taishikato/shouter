@@ -6,7 +6,7 @@ const GoogleIcon = styled.svg`
     height: 100%;
 `;
 
-export const StyledGoogleIcon = () => {
+export const GoogleIconSvg = () => {
     return (
         <GoogleIcon width="51" height="51" viewBox="0 0 51 51" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
             <rect width="51" height="51" fill="url(#pattern0)"/>

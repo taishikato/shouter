@@ -16,16 +16,17 @@ const HorizonLine = styled.div`
     margin-top: 6px;
 `;
 
-const TextBox = styled.div`
+const TextDiv = styled.div`
     font-weight: bold;
     font-size: 24px;
+    color: #FFFFFF;
 `;
 
 export const StyledHorizon = () => {
     return (
         <HorizonContainer>
             <HorizonLine />
-            <TextBox>or</TextBox>
+            <TextDiv>or</TextDiv>
             <HorizonLine />
         </HorizonContainer>
     );

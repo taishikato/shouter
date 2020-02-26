@@ -1,16 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { StyledHeader as Header } from './Header/Header';
-import { StyledMain as Main } from './Main/Main';
+import { TitleHeader } from './TitleHeader/TitleHeader';
+import { MainContent } from './MainContent/MainContent';
 
-const LoginModal = styled.div`
+const LoginModalSection = styled.section`
     background-color: #0C2631;
     display: flex;
     justify-content: center;
     @media screen and (max-width:1024px) { 
         height: 100vh;
         width: 100vw;
+        padding: 0 20px;
         overflow: hidden;
     }
     @media screen and (min-width:1024px) {
@@ -18,36 +19,29 @@ const LoginModal = styled.div`
         width: 810px;
         border-radius: 30px;
     }
-`
+`;
+
 const Container = styled.div`
-    @media screen and ( max-width:1024px) {
+    @media screen and (max-width:660px) {
+        max-width: 90%;
+        width: 100%;
+    }
+    @media screen and (min-width:660px) and (max-width:1024px) {
         max-width: 594px;
         width: 100%;
     }
     @media screen and (min-width:1024px) {
         width: 594px;
     }
-`
-const MarginContainer = styled.div`
-    @media screen and ( max-width:1024px) {
-        max-width: 554px;
-        margin: 0 20px;
-    }
-    @media screen and (min-width:1024px) {
-        width: 554px;
-        margin: 0 20px;
-    }
-`
+`;
 
-export const StyledLoginModal = () => {
+export const LoginModal = () => {
     return (
-        <LoginModal>
-            <Container>
-                <MarginContainer>
-                    <Header />
-                    <Main />
-                </MarginContainer>
+        <LoginModalSection className="LoginModal">
+            <Container className="Container">
+                <TitleHeader />
+                <MainContent />
             </Container>
-        </LoginModal>
+        </LoginModalSection>
     );
 }

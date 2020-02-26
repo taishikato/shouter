@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { StyledGoogleIcon as GoogleIcon } from './GoogleIcon';
+import { GoogleIconSvg } from './GoogleIconSvg';
 
 const GoogleLoginButton = styled.div`
     background-color: #FFFFFF;
@@ -21,7 +21,7 @@ const GoogleIconContainer = styled.div`
     width: 51px;
 `;
 
-const TextBox = styled.div`
+const TextDiv = styled.div`
     color: #000000;
     font-weight: bold;
     font-size: 24px;
@@ -38,9 +38,9 @@ export const StyledGoogleLoginButton = () => {
     return (
         <GoogleLoginButton>
             <GoogleIconContainer>
-                <GoogleIcon />
+                <GoogleIconSvg />
             </GoogleIconContainer>
-            <TextBox>Continue with Google</TextBox>
+            <TextDiv>Continue with Google</TextDiv>
         </GoogleLoginButton>
     );
 }

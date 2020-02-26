@@ -5,19 +5,19 @@ import { StyledLoginForm as LoginForm } from './LoginForm/LoginForm';
 import { StyledHorizon as Horizon } from './Horizon/Horizon';
 import { StyledGoogleLoginButton as GoogleLoginButton } from './GoogleLogin/GoogleLogin';
 
-const Main = styled.main`
+const StyledMain = styled.main`
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-`
+`;
 
-export const StyledMain = () => {
+export const MainContent = () => {
     return (
-        <Main>
+        <StyledMain>
             <LoginForm />
             <Horizon />
             <GoogleLoginButton />
-        </Main>
+        </StyledMain>
     );
 }
