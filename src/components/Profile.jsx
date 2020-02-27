@@ -8,7 +8,9 @@ const Profile = () => {
     <ProfileWrapper>
       <ProfileContainer>
         <Sidebar />
-        <ProfilePageTop />
+        <ProfileFeedSection>
+            <ProfilePageTop />
+        </ProfileFeedSection>
       </ProfileContainer>
     </ProfileWrapper>
   );
@@ -22,6 +24,16 @@ const ProfileWrapper = styled.div`
 
 const ProfileContainer = styled.div`
   width: 900px;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+`;
+
+const ProfileFeedSection = styled.div`
+  width: 100%;
+  height: 100%;
+  border-left: 1px solid #304559;
+  border-right: 1px solid #304559;
   display: flex;
   flex-direction: row;
 `;

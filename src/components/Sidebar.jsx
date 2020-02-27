@@ -38,6 +38,8 @@ const menus = [
 
 const List = styled.li`
   display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
   flex-direction: row;
   list-style: none;
   padding: 7px 0;
