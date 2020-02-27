@@ -1,6 +1,5 @@
 import React from "react";
 import Sidebar from "./Sidebar";
-import ProfilePageTop from "./profilePageTop/ProfilePageTop";
 import styled from "styled-components";
 
 const Timeline = () => {
@@ -8,7 +7,6 @@ const Timeline = () => {
     <TimelineWrapper>
       <TimelineContainer>
         <Sidebar />
-        <ProfilePageTop />
       </TimelineContainer>
     </TimelineWrapper>
   );

@@ -49,7 +49,7 @@ const Span = styled.span`
 `;
 
 const Div = styled.div`
-  width: 200px;
+  width: 300px;
   height: 300px;
   background-color: #16202a;
   color: #fff;
