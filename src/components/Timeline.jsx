@@ -1,6 +1,5 @@
 import React from "react";
 import Sidebar from "./Sidebar";
-import ProfilePageTop from "./profilePageTop/ProfilePageTop";
 import styled from "styled-components";
 
 const Timeline = () => {
@@ -8,7 +7,7 @@ const Timeline = () => {
     <TimelineWrapper>
       <TimelineContainer>
         <Sidebar />
-        <ProfilePageTop />
+        <TimelineFeedSection></TimelineFeedSection>
       </TimelineContainer>
     </TimelineWrapper>
   );
@@ -22,6 +21,15 @@ const TimelineWrapper = styled.div`
 
 const TimelineContainer = styled.div`
   width: 900px;
+  display: flex;
+  flex-direction: row;
+`;
+
+const TimelineFeedSection = styled.div`
+  width: 100%;
+  height: 100%;
+  border-left: 1px solid #304559;
+  border-right: 1px solid #304559;
   display: flex;
   flex-direction: row;
 `;
