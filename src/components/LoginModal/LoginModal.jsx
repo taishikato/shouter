@@ -37,7 +37,7 @@ const Container = styled.div`
 
 export const LoginModal = () => {
     return (
-        <LoginModalSection className="LoginModal">
+        <LoginModalSection className="LoginModal" onClick={()=>console.log('f')}>
             <Container className="Container">
                 <TitleHeader />
                 <MainContent />
