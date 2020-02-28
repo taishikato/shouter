@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-
 import { TitleHeader } from './TitleHeader/TitleHeader';
 import { MainContent } from './MainContent/MainContent';
 
@@ -37,7 +36,7 @@ const Container = styled.div`
 
 export const LoginModal = () => {
     return (
-        <LoginModalSection className="LoginModal" onClick={()=>console.log('f')}>
+        <LoginModalSection className="LoginModal">
             <Container className="Container">
                 <TitleHeader />
                 <MainContent />
