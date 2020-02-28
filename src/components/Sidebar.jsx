@@ -41,6 +41,8 @@ const menus = [
 
 const List = styled.li`
   display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
   flex-direction: row;
   list-style: none;
   padding: 7px 0;
@@ -52,7 +54,7 @@ const Span = styled.span`
 `;
 
 const Div = styled.div`
-  width: 200px;
+  width: 300px;
   height: 300px;
   background-color: #16202a;
   color: #fff;

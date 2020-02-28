@@ -3,6 +3,8 @@ import { BrowserRouter, Switch } from 'react-router-dom';
 import "./App.css";
 import {LoginModal} from './components/LoginModal/LoginModal.jsx';
 import Timeline from './components/Timeline';
+import Profile from './components/Profile'
+
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
 import firebase from './plugins/firebase';
@@ -24,7 +26,7 @@ function App() {
     <Switch>
       <PublicRoute restricted={true} component={LoginModal} path="/" exact />
       <PrivateRoute component={Timeline} path="/timeline" exact />
-      {/* <PrivateRoute component={ProfilePage} path="/profile" exact /> */}
+      <PrivateRoute component={Profile} path="/profile" exact />
     </Switch>
   </BrowserRouter>
   );

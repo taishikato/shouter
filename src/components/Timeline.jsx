@@ -1,6 +1,5 @@
 import React , { useContext }from "react";
 import Sidebar from "./Sidebar";
-import ProfilePageTop from "./profilePageTop/ProfilePageTop";
 import styled from "styled-components";
 import { AuthContext } from '../contexts/AuthContext';
 import firebase from '../plugins/firebase';
@@ -20,7 +19,7 @@ const Timeline = () => {
     <TimelineWrapper>
       <TimelineContainer>
         <Sidebar />
-        <ProfilePageTop />
+        <TimelineFeedSection></TimelineFeedSection>
       </TimelineContainer>
       <button onClick={handleLogout}>LOG ME OUT!!!!!!</button>
     </TimelineWrapper>
@@ -35,6 +34,15 @@ const TimelineWrapper = styled.div`
 
 const TimelineContainer = styled.div`
   width: 900px;
+  display: flex;
+  flex-direction: row;
+`;
+
+const TimelineFeedSection = styled.div`
+  width: 100%;
+  height: 100%;
+  border-left: 1px solid #304559;
+  border-right: 1px solid #304559;
   display: flex;
   flex-direction: row;
 `;
