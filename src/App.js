@@ -14,10 +14,8 @@ function App() {
   const { auth, login } = useContext(AuthContext);
   useEffect(()=>{
     firebase.auth().onAuthStateChanged( user => {
-      console.log('user from AuthStateChanged',user)
       if(user) {
         login(user)
-        console.log('logged')
       }
     })
   },[])

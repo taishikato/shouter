@@ -11,7 +11,6 @@ const Timeline = () => {
     firebase.auth().signOut()
       .then(()=> {
         logout();
-        console.log('signOut')
       })
       .catch(err => console.log(err))
   }

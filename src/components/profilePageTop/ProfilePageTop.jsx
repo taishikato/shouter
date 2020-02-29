@@ -1,8 +1,9 @@
-import React , { useState }from 'react';
+import React , { useState ,useContext }from 'react';
 import styled, { ThemeProvider, css } from 'styled-components';
 import bg from './bg.png';
 import profileImg from './profileImg.jpg';
 import { ReactComponent as SVG } from './calender.svg';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const theme = {
     primBlue: "#15202b",
@@ -96,12 +97,13 @@ const FollowInnerWrapper = styled.div`
 `
 
 const ProfilePageTop = () => {
+    const { auth } = useContext(AuthContext);
     const [profile, setProfile] = useState({
         bgImg: bg,
-        profileImg: profileImg,
-        userName: 'James Yang',
-        userId: '@JamesYa59744663',
-        joined: 'February 2020',
+        profileImg: auth.photoURL,
+        userName: auth.displayName,
+        userId: auth.email,
+        joined: auth.metadata.creationTime.split(" ", 4).join(' '),
         following: 0,
         followers: 0
     });    
