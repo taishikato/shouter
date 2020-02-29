@@ -1,14 +1,26 @@
-import React from "react";
+import React , { useContext }from "react";
 import Sidebar from "./Sidebar";
 import styled from "styled-components";
+import { AuthContext } from '../contexts/AuthContext';
+import firebase from '../plugins/firebase';
 
 const Timeline = () => {
+  const { logout } = useContext(AuthContext);
+  const handleLogout = (e) => {
+    e.preventDefault();
+    firebase.auth().signOut()
+      .then(()=> {
+        logout();
+      })
+      .catch(err => console.log(err))
+  }
   return (
     <TimelineWrapper>
       <TimelineContainer>
         <Sidebar />
         <TimelineFeedSection></TimelineFeedSection>
       </TimelineContainer>
+      <button onClick={handleLogout}>LOG ME OUT!!!!!!</button>
     </TimelineWrapper>
   );
 };

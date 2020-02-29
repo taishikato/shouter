@@ -1,7 +1,8 @@
-import React from 'react';
+import React , { useContext }from 'react';
 import styled from 'styled-components';
-
 import { GoogleIconSvg } from './GoogleIconSvg';
+import { AuthContext } from '../../../../contexts/AuthContext';
+import firebase from '../../../../plugins/firebase';
 
 const GoogleLoginButton = styled.div`
     background-color: #FFFFFF;
@@ -35,8 +36,18 @@ const TextDiv = styled.div`
 `;
 
 export const StyledGoogleLoginButton = () => {
+    const { auth } = useContext(AuthContext);
+    // For firebase Google Auth
+    const provider = new firebase.auth.GoogleAuthProvider();
+    const handleLogin = () => {
+        firebase.auth().signInWithPopup(provider)
+            .then( user => {
+                console.log('user from login button: ',user)
+            })
+            .catch(err => console.log(err))
+    }
     return (
-        <GoogleLoginButton>
+        <GoogleLoginButton onClick={handleLogin}>
             <GoogleIconContainer>
                 <GoogleIconSvg />
             </GoogleIconContainer>

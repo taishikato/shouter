@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-
 import { TitleHeader } from './TitleHeader/TitleHeader';
 import { MainContent } from './MainContent/MainContent';
 
