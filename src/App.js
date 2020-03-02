@@ -2,6 +2,7 @@ import React , { useEffect, useContext }from "react";
 import { BrowserRouter, Switch } from 'react-router-dom';
 import "./App.css";
 import {LoginModal} from './components/LoginModal/LoginModal.jsx';
+import {SigninModal} from './components/SigninModal/SigninModal';
 import Timeline from './components/Timeline';
 import Profile from './components/Profile'
 
@@ -22,7 +23,8 @@ function App() {
   return (
     <BrowserRouter>
     <Switch>
-      <PublicRoute restricted={true} component={LoginModal} path="/" exact />
+      {/* <PublicRoute restricted={true} component={LoginModal} path="/" exact /> */}
+      <PublicRoute restricted={true} component={SigninModal} path="/" exact />
       <PrivateRoute component={Timeline} path="/timeline" exact />
       <PrivateRoute component={Profile} path="/profile" exact />
     </Switch>

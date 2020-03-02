@@ -1,6 +1,7 @@
-import React , { useState }from 'react';
+import React , { useState, useContext }from 'react';
 import styled from 'styled-components';
 import firebase from '../../../../plugins/firebase';
+import { AuthContext } from '../../../../contexts/AuthContext';
 
 const FormContainer = styled.div`
     width: 100%;
@@ -70,31 +71,59 @@ const LoginButtonContainer = styled.button`
     align-items: center;
 `;
 
-export const StyledLoginForm = () => {
+export const StyledSigninForm = () => {
+    const { login } = useContext(AuthContext);
     const [user, setUser] = useState({
+        userName: '',
         email: '',
-        password: ''
+        password: '',
+        rePassword: ''
     });
+
     const handleOnChange = (e) => {
         setUser({
             ...user,
             [e.target.id]: e.target.value
         })
     }
-    const handleLogIn = (e) => {
+
+    const handleSignIn = async (e) => {
         e.preventDefault();
-        firebase.auth().signInWithEmailAndPassword(user.email, user.password)
-            .then(() => {
-                setUser({
-                    email:'',
-                    password: ''
+        try {
+            await firebase.firestore().collection('users').add({
+                    userName: user.userName,
+                    email: user.email
                 })
-            })
-            .catch(err => console.log(err));
+
+            await firebase.auth().createUserWithEmailAndPassword(user.email, user.password);
+            setUser({
+                userName: '',
+                email: '',
+                password: '',
+                rePassword: ''
+            });
+        } catch (err){
+            console.log(err)
+        }
     }
     return (
-        <form onSubmit={handleLogIn}>
+        <form onSubmit={handleSignIn}>
             <FormContainer>
+                <InputField>
+                    <InputLabelContainer>
+                        <label htmlFor="userName">
+                            <InputLabelText>Username</InputLabelText>
+                        </label>
+                    </InputLabelContainer>
+                    <InputContainer>
+                        <Input type="userName" 
+                               id="userName" 
+                               size="52" 
+                               onChange={handleOnChange} 
+                               value={user.userName} 
+                                />
+                    </InputContainer>
+                </InputField>
                 <InputField>
                     <InputLabelContainer>
                         <label htmlFor="email">
@@ -120,6 +149,19 @@ export const StyledLoginForm = () => {
                                size="52" 
                                onChange={handleOnChange} 
                                value={user.password} 
+                               />
+                    </InputContainer>
+                </InputField>
+                <InputField>
+                    <InputLabelContainer htmlFor="rePassword">
+                        <InputLabelText>Re-ender Password</InputLabelText>
+                    </InputLabelContainer>
+                    <InputContainer>
+                        <Input type="rePassword" 
+                               id="rePassword"
+                               size="52" 
+                               onChange={handleOnChange} 
+                               value={user.rePassword} 
                                />
                     </InputContainer>
                 </InputField>
