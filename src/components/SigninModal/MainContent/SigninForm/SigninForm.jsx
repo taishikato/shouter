@@ -107,7 +107,7 @@ export const StyledSigninForm = () => {
                         </label>
                     </InputLabelContainer>
                     <InputContainer>
-                        <Input type="userName" 
+                        <Input type="text" 
                                id="userName" 
                                size="52" 
                                onChange={handleOnChange} 
@@ -148,7 +148,7 @@ export const StyledSigninForm = () => {
                         <InputLabelText>Re-ender Password</InputLabelText>
                     </InputLabelContainer>
                     <InputContainer>
-                        <Input type="rePassword" 
+                        <Input type="password" 
                                id="rePassword"
                                size="52" 
                                onChange={handleOnChange} 
