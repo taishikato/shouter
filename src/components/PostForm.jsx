@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const postForm = () => {
+const PostForm = () => {
   return (
     <Container>
       <UserIcon src="#" alt="user-img" />
@@ -19,7 +19,7 @@ const postForm = () => {
   );
 };
 
-export default postForm;
+export default PostForm;
 
 const Container = styled.div`
   position: relative;

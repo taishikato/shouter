@@ -1,7 +1,6 @@
 import React , { useState ,useContext }from 'react';
 import styled, { ThemeProvider, css } from 'styled-components';
 import bg from './bg.png';
-import profileImg from './profileImg.jpg';
 import { ReactComponent as SVG } from './calender.svg';
 import { AuthContext } from '../../contexts/AuthContext';
 
@@ -41,9 +40,15 @@ const ProfileImg = styled.div`
     transform: translateY(-50%);
     border-radius: 100%;
     border: 4px solid ${props => props.theme.primBlue};
-    background: url(${props => props.url}) no-repeat;
-    background-size: cover;
-    background-position: center;
+    ${props => props.url
+    ? css`
+        background:url(${props => props.url} no-repeat);
+        background-size: cover;
+        background-position: center;
+    `
+    : css`
+        background-color: ${props => props.theme.lightBlue};
+    `}
 `
 
 const BotSection = styled.div`
