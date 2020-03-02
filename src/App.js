@@ -14,7 +14,7 @@ import { AuthContext } from './contexts/AuthContext';
 function App() {
   const { login } = useContext(AuthContext);
   useEffect(()=>{
-    firebase.auth().onAuthStateChanged( user => {
+    firebase.auth().onAuthStateChanged(user => {
       if(user) {
         login(user)
       }

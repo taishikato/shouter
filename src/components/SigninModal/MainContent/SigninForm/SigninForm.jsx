@@ -87,14 +87,15 @@ export const StyledSigninForm = () => {
 
     const handleSignIn = async (e) => {
         e.preventDefault();
+        if(user.password !== user.rePassword) return alert('Please insert the same password')
         try {
+            await firebase.auth().createUserWithEmailAndPassword(user.email, user.password);
             await firebase.firestore().collection('users').add({
                     userName: user.userName,
                     email: user.email
-                })
-            await firebase.auth().createUserWithEmailAndPassword(user.email, user.password);
+                })            
         } catch (err){
-            console.log(err)
+            alert(err.message)
         }
     }
     return (

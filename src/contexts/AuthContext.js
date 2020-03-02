@@ -9,19 +9,17 @@ const AuthContextProvider = (props) =>{
         setAuth(user)
         if(user.displayName === null) {
             try {   
-                const data = await firebase.firestore().collection('users').get();
-                data.forEach(doc =>{ 
-                    if(user.email === doc.data().email) {   
-                        setAuth({
-                            ...user,
-                            displayName: doc.data().userName
-                        })
-                    }
-                });
-            
-            } catch(err) {
-                console.log(err)
-            }
+                const data = await firebase
+                    .firestore()
+                    .collection('users')
+                    .where('email', '==', user.email)
+                    .get();
+                const userData = data.docs[0].data()
+                setAuth({
+                    ...user,
+                    displayName: userData.userName
+                })
+            } catch(err) {console.log(err)}
         }
     }
     const logout = () => {
