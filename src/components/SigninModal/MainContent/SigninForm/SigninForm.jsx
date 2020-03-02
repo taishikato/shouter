@@ -1,7 +1,6 @@
-import React , { useState, useContext }from 'react';
+import React , { useState }from 'react';
 import styled from 'styled-components';
 import firebase from '../../../../plugins/firebase';
-import { AuthContext } from '../../../../contexts/AuthContext';
 
 const FormContainer = styled.div`
     width: 100%;
@@ -72,7 +71,6 @@ const LoginButtonContainer = styled.button`
 `;
 
 export const StyledSigninForm = () => {
-    const { login } = useContext(AuthContext);
     const [user, setUser] = useState({
         userName: '',
         email: '',
@@ -94,14 +92,7 @@ export const StyledSigninForm = () => {
                     userName: user.userName,
                     email: user.email
                 })
-
             await firebase.auth().createUserWithEmailAndPassword(user.email, user.password);
-            setUser({
-                userName: '',
-                email: '',
-                password: '',
-                rePassword: ''
-            });
         } catch (err){
             console.log(err)
         }
