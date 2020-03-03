@@ -1,0 +1,20 @@
+{
+  "eslint.alwaysShowStatus": true,
+  "eslint.format.enable": true,
+  "eslint.packageManager": "yarn",
+  "eslint.probe": ["javascript", "javascriptreact", "typescript", "typescriptreact", "html"],
+  "prettier.packageManager": "yarn",
+  "editor.formatOnSave": false,
+  "[javascript]": {
+    "editor.formatOnSave": true
+  },
+  "[jsx]": {
+    "editor.formatOnSave": true
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": true
+  },
+  "[json]": {
+    "editor.formatOnSave": true
+  }
+}
