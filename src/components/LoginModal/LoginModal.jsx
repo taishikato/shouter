@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-
 import { TitleHeader } from './TitleHeader/TitleHeader';
 import { MainContent } from './MainContent/MainContent';
 
@@ -8,7 +7,6 @@ const LoginModalSection = styled.section`
     background-color: #0C2631;
     display: flex;
     justify-content: center;
-    z-index: 10;
     @media screen and (max-width:1024px) { 
         height: 100vh;
         width: 100vw;
@@ -37,12 +35,9 @@ const Container = styled.div`
 `;
 
 export const LoginModal = () => {
-    const handleClick = (e) => {
-        e.stopPropagation();
-    }
     return (
-        <LoginModalSection onClick={handleClick}>
-            <Container>
+        <LoginModalSection className="LoginModal">
+            <Container className="Container">
                 <TitleHeader />
                 <MainContent />
             </Container>

@@ -1,5 +1,6 @@
-import React from 'react';
+import React , { useState }from 'react';
 import styled from 'styled-components';
+import firebase from '../../../../plugins/firebase';
 
 const FormContainer = styled.div`
     width: 100%;
@@ -55,7 +56,9 @@ const Input = styled.input`
     width: 92%;
 `;
 
-const LoginButtonContainer = styled.div`
+const LoginButtonContainer = styled.button`
+    all: unset;
+    cursor: pointer;
     background-color: #29ABE2;
     color: #FFFFFF;
     height: 58px;
@@ -68,17 +71,43 @@ const LoginButtonContainer = styled.div`
 `;
 
 export const StyledLoginForm = () => {
+    const [user, setUser] = useState({
+        email: '',
+        password: ''
+    });
+    const handleOnChange = (e) => {
+        setUser({
+            ...user,
+            [e.target.id]: e.target.value
+        })
+    }
+    const handleLogIn = (e) => {
+        e.preventDefault();
+        firebase.auth().signInWithEmailAndPassword(user.email, user.password)
+            .then(() => {
+                setUser({
+                    email:'',
+                    password: ''
+                })
+            })
+            .catch(err => console.log(err));
+    }
     return (
-        <form>
+        <form onSubmit={handleLogIn}>
             <FormContainer>
                 <InputField>
                     <InputLabelContainer>
-                        <label htmlFor="username">
-                            <InputLabelText>Username</InputLabelText>
+                        <label htmlFor="email">
+                            <InputLabelText>Email</InputLabelText>
                         </label>
                     </InputLabelContainer>
                     <InputContainer>
-                        <Input type="text" id="username" size="52" />
+                        <Input type="email" 
+                               id="email" 
+                               size="52" 
+                               onChange={handleOnChange} 
+                               value={user.email} 
+                                />
                     </InputContainer>
                 </InputField>
                 <InputField>
@@ -86,10 +115,15 @@ export const StyledLoginForm = () => {
                         <InputLabelText>Password</InputLabelText>
                     </InputLabelContainer>
                     <InputContainer>
-                        <Input type="password" id="password" size="52" />
+                        <Input type="password" 
+                               id="password"
+                               size="52" 
+                               onChange={handleOnChange} 
+                               value={user.password} 
+                               />
                     </InputContainer>
                 </InputField>
-                <LoginButtonContainer>
+                <LoginButtonContainer type="submit">
                     <div>LOG IN</div>
                 </LoginButtonContainer>
             </FormContainer>
