@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import { StyledLoginForm as LoginForm } from './LoginForm/LoginForm';
 import { StyledHorizon as Horizon } from './Horizon/Horizon';
 import { StyledGoogleLoginButton as GoogleLoginButton } from './GoogleLogin/GoogleLogin';
@@ -16,7 +17,7 @@ export const MainContent = () => {
         <StyledMain>
             <LoginForm />
             <Horizon />
-            <GoogleLoginButton/>
+            <GoogleLoginButton />
         </StyledMain>
     );
 }
