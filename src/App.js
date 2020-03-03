@@ -1,7 +1,7 @@
 import React , { useEffect, useContext }from "react";
 import { BrowserRouter, Switch } from 'react-router-dom';
 import "./App.css";
-import {LoginModal} from './components/LoginModal/LoginModal.jsx';
+import {LoginModal} from './components/LoginPage/LoginModal/LoginModal.jsx';
 import {SigninModal} from './components/SigninModal/SigninModal';
 import Timeline from './components/Timeline';
 import Profile from './components/Profile'
