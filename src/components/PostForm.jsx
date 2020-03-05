@@ -7,22 +7,25 @@ const PostForm = () => {
   const [text, setText] = useState('');
   const {auth} = useContext(AuthContext);
 
-  const addShout = () => {
-    firebase
-      .firestore()
-      .collection('shouts')
-      .add({
-        text,
-        createdAt: new Date(),
-        picture: '',
-        userId: auth.uid,
-      })
-      .then(docRef => {
-        console.log('Document written with ID: ', docRef.id);
-      })
-      .catch(error => {
-        console.error('Error adding document: ', error);
-      });
+  const addShout = async () => {
+    const timeStamp = () => {
+      const date = new Date();
+      return Math.floor(date.getTime() / 1000);
+    };
+
+    try {
+      await firebase
+        .firestore()
+        .collection('shouts')
+        .add({
+          text,
+          createdAt: timeStamp(),
+          picture: '',
+          userId: auth.uid,
+        });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleSubmit = () => {
