@@ -92,7 +92,7 @@ export const StyledLoginForm = () => {
           password: '',
         });
       })
-      .catch(err => console.log(err));
+      .catch(err => alert(err.message));
   };
   return (
     <form onSubmit={handleLogIn}>

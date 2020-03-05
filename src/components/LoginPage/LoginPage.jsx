@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import {ShouterLogoSvg} from './ShouterLogoSvg';
 import {LoginModal} from '../LoginModal/LoginModal';
+import {SigninModal} from '../SigninModal/SigninModal';
 
 const LoginPageContainer = styled.section`
   display: flex;
@@ -35,7 +36,7 @@ const Main = styled.main`
 
 const Footer = styled.footer`
   position: absolute;
-  bottom: 0;
+  bottom: 10px;
   left: 70px;
   color: #5f86ad;
 `;
@@ -43,7 +44,7 @@ const Footer = styled.footer`
 const ShouterLogoContainer = styled.div`
   width: 300px;
   margin-top: 80px;
-  margin-bottom: 300px;
+  margin-bottom: 200px;
 `;
 
 const SubTitle = styled.div`
@@ -55,10 +56,11 @@ const SubTitle = styled.div`
 const SignUp = styled.div`
   color: #ffffff;
   text-align: left;
+  line-height: 30px;
 `;
 
 const JoinTitle = styled.span`
-  font-weight: bold;
+  font-weight: light;
   font-size: 20px;
 `;
 
@@ -67,6 +69,20 @@ const SignUpButton = styled.div`
   width: 310px;
   height: 36px;
   background-color: #0038ff;
+  border-radius: 50px;
+  text-align: center;
+  display: flex;
+  margin-bottom: 25px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+`;
+
+const LogInButton = styled.div`
+  color: #ffffff;
+  width: 310px;
+  height: 36px;
+  border: 2px solid #0038ff;
   border-radius: 50px;
   text-align: center;
   display: flex;
@@ -93,7 +109,12 @@ export const LoginPage = () => {
   const [clicked, setClicked] = useState(false);
   return (
     <LoginPageContainer>
-      {clicked && (
+      {clicked === 'SignUp' && (
+        <BackGroundMask onClick={() => setClicked(false)}>
+          <SigninModal />
+        </BackGroundMask>
+      )}
+      {clicked === 'LogIn' && (
         <BackGroundMask onClick={() => setClicked(false)}>
           <LoginModal />
         </BackGroundMask>
@@ -107,9 +128,12 @@ export const LoginPage = () => {
           <SubTitle>Let the world hear you shout!</SubTitle>
           <SignUp>
             Join Shouter Now!
-            <SignUpButton onClick={() => setClicked(!clicked)}>
+            <SignUpButton onClick={() => setClicked('SignUp')}>
               <JoinTitle>SIGN UP</JoinTitle>
             </SignUpButton>
+            <LogInButton onClick={() => setClicked('LogIn')}>
+              <JoinTitle>LOG IN</JoinTitle>
+            </LogInButton>
           </SignUp>
         </Main>
         <Footer>©︎ shouter Service | Term of Service | Announcement | About</Footer>
