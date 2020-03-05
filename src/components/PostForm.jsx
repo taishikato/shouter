@@ -1,10 +1,29 @@
 import React, {useState, useContext} from 'react';
 import styled from 'styled-components';
-import {ShoutsContext} from '../contexts/ ShoutsContext';
+import AuthContext from '../contexts/AuthContext';
+import firebase from 'firebase';
 
 const PostForm = () => {
-  const {addShout} = useContext(ShoutsContext);
   const [text, setText] = useState('');
+  const {auth} = useContext(AuthContext);
+
+  const addShout = () => {
+    firebase
+      .firestore()
+      .collection('shouts')
+      .add({
+        text,
+        createdAt: new Date(),
+        picture: '',
+        userId: auth.uid,
+      })
+      .then(docRef => {
+        console.log('Document written with ID: ', docRef.id);
+      })
+      .catch(error => {
+        console.error('Error adding document: ', error);
+      });
+  };
 
   const handleSubmit = () => {
     addShout(text);

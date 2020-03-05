@@ -2,7 +2,6 @@ import React, {useContext} from 'react';
 import Sidebar from './Sidebar';
 import styled from 'styled-components';
 import {AuthContext} from '../contexts/AuthContext';
-import {ShoutsContextProvider} from '../contexts/ ShoutsContext';
 import firebase from '../plugins/firebase';
 
 const Timeline = () => {
@@ -20,10 +19,8 @@ const Timeline = () => {
   return (
     <TimelineWrapper>
       <TimelineContainer>
-        <ShoutsContextProvider>
-          <Sidebar />
-          <TimelineFeedSection></TimelineFeedSection>
-        </ShoutsContextProvider>
+        <Sidebar />
+        <TimelineFeedSection></TimelineFeedSection>
       </TimelineContainer>
       <button onClick={handleLogout}>LOG ME OUT!!!!!!</button>
     </TimelineWrapper>
