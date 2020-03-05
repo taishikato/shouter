@@ -1,7 +1,7 @@
 import React, {useState, useContext} from 'react';
 import styled from 'styled-components';
 import AuthContext from '../contexts/AuthContext';
-import firebase from 'firebase';
+import firebase from '../plugins/firebase';
 
 const PostForm = () => {
   const [text, setText] = useState('');
