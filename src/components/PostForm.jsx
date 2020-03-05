@@ -1,20 +1,25 @@
-import React from "react";
-import styled from "styled-components";
+import React, {useState, useContext} from 'react';
+import styled from 'styled-components';
+import {ShoutsContext} from '../contexts/ ShoutsContext';
 
 const PostForm = () => {
+  const {addShout} = useContext(ShoutsContext);
+  const [text, setText] = useState('');
+
+  const handleSubmit = () => {
+    addShout(text);
+    setText('');
+  };
+
   return (
     <Container>
       <UserIcon src="#" alt="user-img" />
-      <ShoutArea
-        placeholder="What's Up?"
-      />
+      <ShoutArea value={text} onChange={e => setText(e.target.value)} placeholder="What's Up?" />
       <SmallIcons>
         <UploadIcon src="#" alt="upload" />
         <EmojiIcon src="#" alt="emoji" />
       </SmallIcons>
-      <Button >
-        shout
-      </Button>
+      <Button onClick={handleSubmit}>shout</Button>
     </Container>
   );
 };
@@ -23,16 +28,16 @@ export default PostForm;
 
 const Container = styled.div`
   position: relative;
-  height:150px;
-  width:300px;
-  padding:10px;
-  background-color: #16202A; 
+  height: 150px;
+  width: 300px;
+  padding: 10px;
+  background-color: #16202a;
 `;
 
 const UserIcon = styled.img`
   position: absolute;
   top: 0px;
-  left:0px;
+  left: 0px;
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -46,13 +51,13 @@ const ShoutArea = styled.textarea`
   outline: none;
   resize: none;
   border: none;
-  color:#44607B;
-  font-size:15px;
-  background-color:#16202A;
+  color: #44607b;
+  font-size: 15px;
+  background-color: #16202a;
   ::placeholder {
     font-size: 15px;
-    font-weight:600;
-    color:#44607B;
+    font-weight: 600;
+    color: #44607b;
   }
 `;
 
