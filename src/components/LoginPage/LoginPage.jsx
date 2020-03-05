@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
 import {ShouterLogoSvg} from './ShouterLogoSvg';
@@ -107,9 +107,6 @@ const BackGroundMask = styled.div`
 
 export const LoginPage = () => {
   const [clicked, setClicked] = useState(false);
-  useEffect(() => {
-    console.log('From EF', clicked);
-  }, [clicked]);
   return (
     <LoginPageContainer>
       {clicked === 'SignUp' && (
