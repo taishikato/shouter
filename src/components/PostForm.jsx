@@ -2,24 +2,20 @@ import React, {useState, useContext} from 'react';
 import styled from 'styled-components';
 import AuthContext from '../contexts/AuthContext';
 import firebase from '../plugins/firebase';
+import getCurrentTimeStamp from '../plugins/getCurrentTimeStamp';
 
 const PostForm = () => {
   const [text, setText] = useState('');
   const {auth} = useContext(AuthContext);
 
   const addShout = async () => {
-    const timeStamp = () => {
-      const date = new Date();
-      return Math.floor(date.getTime() / 1000);
-    };
-
     try {
       await firebase
         .firestore()
         .collection('shouts')
         .add({
           text,
-          createdAt: timeStamp(),
+          createdAt: getCurrentTimeStamp(),
           picture: '',
           userId: auth.uid,
         });
