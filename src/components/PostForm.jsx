@@ -28,8 +28,8 @@ const PostForm = () => {
     }
   };
 
-  const handleSubmit = () => {
-    addShout(text);
+  const handleSubmit = async () => {
+    await addShout(text);
     setText('');
   };
 
