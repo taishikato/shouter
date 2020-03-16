@@ -5,6 +5,43 @@ import {ShouterLogoSvg} from './ShouterLogoSvg';
 import {LoginModal} from '../LoginModal/LoginModal';
 import {SigninModal} from '../SigninModal/SigninModal';
 
+export const LoginPage = () => {
+  const [clicked, setClicked] = useState(false);
+  return (
+    <LoginPageContainer>
+      {clicked === 'SignUp' && (
+        <BackGroundMask onClick={() => setClicked(false)}>
+          <SigninModal />
+        </BackGroundMask>
+      )}
+      {clicked === 'LogIn' && (
+        <BackGroundMask onClick={() => setClicked(false)}>
+          <LoginModal />
+        </BackGroundMask>
+      )}
+      <LeftPic />
+      <RightMenu>
+        <Main>
+          <ShouterLogoContainer>
+            <ShouterLogoSvg />
+          </ShouterLogoContainer>
+          <SubTitle>Let the world hear you shout!</SubTitle>
+          <SignUp>
+            Join Shouter Now!
+            <SignUpButton onClick={() => setClicked('SignUp')}>
+              <JoinTitle>SIGN UP</JoinTitle>
+            </SignUpButton>
+            <LogInButton onClick={() => setClicked('LogIn')}>
+              <JoinTitle>LOG IN</JoinTitle>
+            </LogInButton>
+          </SignUp>
+        </Main>
+        <Footer>©︎ shouter Service | Term of Service | Announcement | About</Footer>
+      </RightMenu>
+    </LoginPageContainer>
+  );
+};
+
 const LoginPageContainer = styled.section`
   display: flex;
   width: 100vw;
@@ -104,40 +141,3 @@ const BackGroundMask = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
-export const LoginPage = () => {
-  const [clicked, setClicked] = useState(false);
-  return (
-    <LoginPageContainer>
-      {clicked === 'SignUp' && (
-        <BackGroundMask onClick={() => setClicked(false)}>
-          <SigninModal />
-        </BackGroundMask>
-      )}
-      {clicked === 'LogIn' && (
-        <BackGroundMask onClick={() => setClicked(false)}>
-          <LoginModal />
-        </BackGroundMask>
-      )}
-      <LeftPic />
-      <RightMenu>
-        <Main>
-          <ShouterLogoContainer>
-            <ShouterLogoSvg />
-          </ShouterLogoContainer>
-          <SubTitle>Let the world hear you shout!</SubTitle>
-          <SignUp>
-            Join Shouter Now!
-            <SignUpButton onClick={() => setClicked('SignUp')}>
-              <JoinTitle>SIGN UP</JoinTitle>
-            </SignUpButton>
-            <LogInButton onClick={() => setClicked('LogIn')}>
-              <JoinTitle>LOG IN</JoinTitle>
-            </LogInButton>
-          </SignUp>
-        </Main>
-        <Footer>©︎ shouter Service | Term of Service | Announcement | About</Footer>
-      </RightMenu>
-    </LoginPageContainer>
-  );
-};
