@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react';
 import styled from 'styled-components';
-import AuthContext from '../contexts/AuthContext';
+import {AuthContext} from '../contexts/AuthContext';
 import firebase from '../plugins/firebase';
 import getCurrentTimeStamp from '../plugins/getCurrentTimeStamp';
 
@@ -29,13 +29,15 @@ const PostForm = () => {
     setText('');
   };
 
+  console.log('User: ', auth);
+
   return (
     <Container>
-      <UserIcon src="#" alt="user-img" />
+      <UserIcon src={auth.photoURL} alt="user-img" />
       <ShoutArea value={text} onChange={e => setText(e.target.value)} placeholder="What's Up?" />
       <SmallIcons>
-        <UploadIcon src="#" alt="upload" />
-        <EmojiIcon src="#" alt="emoji" />
+        <Icon className="fas fa-image"></Icon>
+        <Icon className="fas fa-smile-beam"></Icon>
       </SmallIcons>
       <Button onClick={handleSubmit}>shout</Button>
     </Container>
@@ -47,15 +49,15 @@ export default PostForm;
 const Container = styled.div`
   position: relative;
   height: 150px;
-  width: 300px;
+  width: 100%;
   padding: 10px;
   background-color: #16202a;
 `;
 
 const UserIcon = styled.img`
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 20px;
+  left: 20px;
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -63,13 +65,13 @@ const UserIcon = styled.img`
 
 const ShoutArea = styled.textarea`
   position: absolute;
-  left: 55px;
-  width: 250px;
+  left: 75px;
+  width: 85%;
   height: 100px;
   outline: none;
   resize: none;
   border: none;
-  color: #44607b;
+  color: #BCD3FF;
   font-size: 15px;
   background-color: #16202a;
   ::placeholder {
@@ -82,11 +84,11 @@ const ShoutArea = styled.textarea`
 const Button = styled.button`
   position: absolute;
   top: 115px;
-  left: 260px;
+  right: 20px;
   font-size: 13px;
   font-weight: 600;
-  padding: 6px 10px;
-  border-radius: 5px;
+  padding: 6px 20px;
+  border-radius: 50px;
   background-color: #74a1cc;
   color: white;
   border: none;
@@ -95,16 +97,12 @@ const Button = styled.button`
 const SmallIcons = styled.div`
   position: absolute;
   top: 120px;
-  left: 55px;
+  left: 75px;
 `;
 
-const UploadIcon = styled.img`
+const Icon = styled.i`
+  color: #74a1cc;
   width: 20px;
   height: 20px;
-`;
-
-const EmojiIcon = styled.img`
-  width: 20px;
-  height: 20px;
-  margin-left: 20px;
+  margin-right: 20px;
 `;

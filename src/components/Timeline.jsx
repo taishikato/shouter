@@ -3,6 +3,7 @@ import Sidebar from './Sidebar';
 import styled from 'styled-components';
 import {AuthContext} from '../contexts/AuthContext';
 import firebase from '../plugins/firebase';
+import PostForm from './PostForm';
 
 const Timeline = () => {
   const {logout} = useContext(AuthContext);
@@ -19,10 +20,11 @@ const Timeline = () => {
   return (
     <TimelineWrapper>
       <TimelineContainer>
-        <Sidebar />
-        <TimelineFeedSection></TimelineFeedSection>
+        <Sidebar handleClick={handleLogout}/>
+        <TimelineFeedSection>
+          <PostForm />
+        </TimelineFeedSection>
       </TimelineContainer>
-      <button onClick={handleLogout}>LOG ME OUT!!!!!!</button>
     </TimelineWrapper>
   );
 };
@@ -40,7 +42,7 @@ const TimelineContainer = styled.div`
 `;
 
 const TimelineFeedSection = styled.div`
-  width: 100%;
+  width: 720px;
   height: 100%;
   border-left: 1px solid #304559;
   border-right: 1px solid #304559;
