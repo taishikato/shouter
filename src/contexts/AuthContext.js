@@ -5,6 +5,8 @@ export const AuthContext = createContext();
 
 const AuthContextProvider = (props) =>{
     const [auth, setAuth] = useState(null);
+    const [loading, setLoading] = useState(true);
+
     const login = async (user) => { 
         setAuth(user)
         if(user.displayName === null) {
@@ -21,12 +23,13 @@ const AuthContextProvider = (props) =>{
                 })
             } catch(err) {console.log(err)}
         }
+        setLoading(false);
     }
     const logout = () => {
         setAuth(null)
     }
     return (
-        <AuthContext.Provider value={{auth, login, logout}}>
+        <AuthContext.Provider value={{auth, login, logout, loading}}>
             {props.children}
         </AuthContext.Provider>
     )

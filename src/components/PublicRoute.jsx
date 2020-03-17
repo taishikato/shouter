@@ -1,21 +1,19 @@
-import React , { useContext }from "react";
-import { Route, Redirect } from "react-router-dom";
-import { AuthContext } from '../contexts/AuthContext';
+import React, {useContext} from 'react';
+import {Route, Redirect} from 'react-router-dom';
+import {AuthContext} from '../contexts/AuthContext';
+import Loader from './Loader';
 
-const PublicRoute = ({ component: Component, restricted, ...rest }) => {
-  const { auth } = useContext(AuthContext) ;
+const PublicRoute = ({component: Component, restricted, ...rest}) => {
+  const {auth, loading} = useContext(AuthContext);
+  if (loading) return(<Loader />)
+
   return (
-    // restricted = false meaning public route
-    // restricted = true meaning restricted route
-    <Route
-      {...rest}
-      render={props =>
-        auth && restricted ? (
-          <Redirect to="/timeline" />
-        ) : (
-          <Component {...props} />
-        )
-      }
+    <Route 
+      {...rest} 
+      render={props => (auth && restricted ? 
+        <Redirect to="/timeline" /> 
+        : <Component {...props} />
+      )} 
     />
   );
 };
