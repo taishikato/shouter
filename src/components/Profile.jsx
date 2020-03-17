@@ -30,7 +30,7 @@ const ProfileContainer = styled.div`
 `;
 
 const ProfileFeedSection = styled.div`
-  width: 100%;
+  width: 720px;
   height: 100%;
   border-left: 1px solid #304559;
   border-right: 1px solid #304559;

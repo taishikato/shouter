@@ -1,43 +1,62 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import React from 'react';
+import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 
 const menus = [
   {
-    name: "",
-    icon: "fab fa-twitter"
+    name: '',
+    icon: 'fab fa-twitter',
   },
   {
-    name: "Home",
-    icon: "fas fa-home",
-    path: "/timeline"
+    name: 'Home',
+    icon: 'fas fa-home',
+    path: '/timeline',
   },
   {
-    name: "Search",
-    icon: "fas fa-search"
+    name: 'Profile',
+    icon: 'far fa-user',
+    path: '/profile',
   },
-  {
-    name: "Notifications",
-    icon: "fas fa-bullhorn"
-  },
-  {
-    name: "Messages",
-    icon: "far fa-envelope"
-  },
-  {
-    name: "Bookmarks",
-    icon: "far fa-bookmark"
-  },
-  {
-    name: "Profile",
-    icon: "far fa-user",
-    path: "/profile"
-  },
-  {
-    name: "More",
-    icon: "fas fa-list"
-  }
 ];
+
+const renderMenu = () => {
+  return menus.map(menu => (
+    <List key={menu.name}>
+      <Icon className={menu.icon}></Icon>
+      {menu.path ? (
+        <Link to={menu.path} style={{textDecoration: 'none', color: '#fff'}}>
+          <Span>{menu.name}</Span>
+        </Link>
+      ) : (
+        <Span>{menu.name}</Span>
+      )}
+    </List>
+  ));
+};
+
+const Sidebar = ({handleClick}) => {
+  return (
+    <>
+      <Div>
+        <ul>
+          {renderMenu()}
+          <Icon className="fas fa-sign-out-alt"></Icon>
+          <Link onClick={e => handleClick(e)} style={{textDecoration: 'none', color: '#fff'}}>
+            <Span>Logout</Span>
+          </Link>
+        </ul>
+      </Div>
+      <Footer>
+        <Link>Terms</Link>
+        <Link>Privacy policy</Link>
+        <Link>Cookies</Link>
+        <Copyright>© 2020 Shouter</Copyright>
+      </Footer>
+    </>
+  );
+};
+
+export default Sidebar;
 
 const List = styled.li`
   display: flex;
@@ -54,7 +73,7 @@ const Span = styled.span`
 `;
 
 const Div = styled.div`
-  width: 300px;
+  width: 180px;
   height: 300px;
   background-color: #16202a;
   color: #fff;
@@ -62,31 +81,31 @@ const Div = styled.div`
   cursor: pointer;
 `;
 
+const Footer = styled.div`
+  border-top: 1px solid #304559;
+  color: #8998a6;
+  padding-top: 10px;
+  height: 50px;
+  width: 180px;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  flex-basis: auto;
+  flex-direction: row;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  font-size: 80%;
+  a {
+    color: #8998a6;
+    text-decoration: none;
+  }
+`;
+
+const Copyright = styled.div`
+  display: flex;
+`;
+
 const Icon = styled.i`
   color: #74a1cc;
 `;
-
-const renderMenu = () => {
-  return menus.map(menu => (
-    <List key={menu.name}>
-      <Icon className={menu.icon}></Icon>
-      {menu.path ? (
-        <Link to={menu.path} style={{ textDecoration: "none", color: "#fff" }}>
-          <Span>{menu.name}</Span>
-        </Link>
-      ) : (
-        <Span>{menu.name}</Span>
-      )}
-    </List>
-  ));
-};
-
-const Sidebar = () => {
-  return (
-    <Div>
-      <ul>{renderMenu()}</ul>
-    </Div>
-  );
-};
-
-export default Sidebar;
