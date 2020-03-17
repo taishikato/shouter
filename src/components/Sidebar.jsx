@@ -1,50 +1,33 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-
+import React from 'react';
+import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 
 const menus = [
   {
-    name: "",
-    icon: "fab fa-twitter"
+    name: '',
+    icon: 'fab fa-twitter',
   },
   {
-    name: "Home",
-    icon: "fas fa-home",
-    path: "/timeline"
+    name: 'Home',
+    icon: 'fas fa-home',
+    path: '/timeline',
   },
   {
-    name: "Profile",
-    icon: "far fa-user",
-    path: "/profile"
+    name: 'Profile',
+    icon: 'far fa-user',
+    path: '/profile',
   },
-  {
-    name: "Logout",
-    icon: "fas fa-sign-out-alt",
-    handler: "out"
-  }
 ];
 
-const renderMenu = (handleClick) => {
+const renderMenu = () => {
   return menus.map(menu => (
     <List key={menu.name}>
       <Icon className={menu.icon}></Icon>
       {menu.path ? (
-        <Link 
-          to={menu.path} 
-          style={{ textDecoration: "none", color: "#fff" }}
-        >
+        <Link to={menu.path} style={{textDecoration: 'none', color: '#fff'}}>
           <Span>{menu.name}</Span>
         </Link>
-      ) : (menu.handler) ?(
-        <Link 
-          to={menu.path} 
-          onClick={(e) => handleClick(e)} 
-          style={{ textDecoration: "none", color: "#fff" }}
-        >
-            <Span>{menu.name}</Span>
-        </Link>
-      ):(
+      ) : (
         <Span>{menu.name}</Span>
       )}
     </List>
@@ -54,15 +37,21 @@ const renderMenu = (handleClick) => {
 const Sidebar = ({handleClick}) => {
   return (
     <>
-    <Div>
-      <ul>{renderMenu(handleClick)}</ul>
-    </Div>
-    <Footer>
-      <Link>Terms</Link>
-      <Link>Privacy policy</Link>
-      <Link>Cookies</Link>
-      <Copyright>© 2020 Shouter</Copyright>
-    </Footer>
+      <Div>
+        <ul>
+          {renderMenu()}
+          <Icon className="fas fa-sign-out-alt"></Icon>
+          <Link onClick={e => handleClick(e)} style={{textDecoration: 'none', color: '#fff'}}>
+            <Span>Logout</Span>
+          </Link>
+        </ul>
+      </Div>
+      <Footer>
+        <Link>Terms</Link>
+        <Link>Privacy policy</Link>
+        <Link>Cookies</Link>
+        <Copyright>© 2020 Shouter</Copyright>
+      </Footer>
     </>
   );
 };
@@ -116,7 +105,6 @@ const Footer = styled.div`
 const Copyright = styled.div`
   display: flex;
 `;
-
 
 const Icon = styled.i`
   color: #74a1cc;
