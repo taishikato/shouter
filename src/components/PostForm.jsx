@@ -39,7 +39,9 @@ const PostForm = () => {
         <Icon className="fas fa-image"></Icon>
         <Icon className="fas fa-smile-beam"></Icon>
       </SmallIcons>
-      <Button onClick={handleSubmit}>shout</Button>
+      <Button onClick={handleSubmit} disabled={!text}>
+        shout
+      </Button>
     </Container>
   );
 };
@@ -71,7 +73,7 @@ const ShoutArea = styled.textarea`
   outline: none;
   resize: none;
   border: none;
-  color: #BCD3FF;
+  color: #bcd3ff;
   font-size: 15px;
   background-color: #16202a;
   ::placeholder {
@@ -92,6 +94,19 @@ const Button = styled.button`
   background-color: #74a1cc;
   color: white;
   border: none;
+  :hover {
+    cursor: pointer;
+  }
+  :focus {
+    outline: 0;
+  }
+  :disabled {
+    background-color: #1d3246;
+    color: #7b7b7b;
+    :hover {
+      cursor: auto;
+    }
+  }
 `;
 
 const SmallIcons = styled.div`

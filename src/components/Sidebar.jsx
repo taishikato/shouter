@@ -40,16 +40,18 @@ const Sidebar = ({handleClick}) => {
       <Div>
         <ul>
           {renderMenu()}
-          <Icon className="fas fa-sign-out-alt"></Icon>
-          <Link onClick={e => handleClick(e)} style={{textDecoration: 'none', color: '#fff'}}>
-            <Span>Logout</Span>
-          </Link>
+          <List>
+            <Icon className="fas fa-sign-out-alt"></Icon>
+            <Link to="#" onClick={e => handleClick(e)} style={{textDecoration: 'none', color: '#fff'}}>
+              <Span>Logout</Span>
+            </Link>
+          </List>
         </ul>
       </Div>
       <Footer>
-        <Link>Terms</Link>
-        <Link>Privacy policy</Link>
-        <Link>Cookies</Link>
+        <Link to="#">Terms</Link>
+        <Link to="#">Privacy policy</Link>
+        <Link to="#">Cookies</Link>
         <Copyright>© 2020 Shouter</Copyright>
       </Footer>
     </>
