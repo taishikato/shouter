@@ -1,12 +1,19 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useRef, useEffect} from 'react';
 import styled from 'styled-components';
 import {AuthContext} from '../contexts/AuthContext';
 import firebase from '../plugins/firebase';
 import getCurrentTimeStamp from '../plugins/getCurrentTimeStamp';
+import Picker from 'emoji-picker-react';
 
 const PostForm = () => {
   const [text, setText] = useState('');
+  const [isPickerOpen, setPickerOpen] = useState(false);
   const {auth} = useContext(AuthContext);
+
+  // Create a ref that we add to the element for which we want to detect outside clicks
+  const ref = useRef();
+  // Call hook passing in the ref and a function to call on outside click
+  useOnClickOutside(ref, () => setPickerOpen(false));
 
   const addShout = async () => {
     try {
@@ -29,21 +36,57 @@ const PostForm = () => {
     setText('');
   };
 
-  console.log('User: ', auth);
+  const handleChange = e => {
+    setText(e.target.value);
+  };
+
+  const onEmojiClick = () => {
+    setPickerOpen(true);
+  };
+
+  const addEmoji = (event, emojiObject) => {
+    setText(text => text + emojiObject.emoji);
+  };
 
   return (
     <Container>
       <UserIcon src={auth.photoURL} alt="user-img" />
-      <ShoutArea value={text} onChange={e => setText(e.target.value)} placeholder="What's Up?" />
+      <ShoutArea value={text} onChange={e => handleChange(e)} placeholder="What's Up?" />
       <SmallIcons>
         <Icon className="fas fa-image"></Icon>
-        <Icon className="fas fa-smile-beam"></Icon>
+        <Icon className="fas fa-smile-beam" onClick={onEmojiClick}></Icon>
+        {isPickerOpen ? (
+          <PickerContainer ref={ref}>
+            <Picker onEmojiClick={addEmoji} />
+          </PickerContainer>
+        ) : null}
       </SmallIcons>
       <Button onClick={handleSubmit} disabled={!text}>
         shout
       </Button>
     </Container>
   );
+};
+
+const useOnClickOutside = (ref, handler) => {
+  useEffect(() => {
+    const listener = event => {
+      // Do nothing if clicking ref's element or descendent elements
+      if (!ref.current || ref.current.contains(event.target)) {
+        return;
+      }
+      handler(event);
+    };
+
+    document.addEventListener('mousedown', listener);
+    document.addEventListener('touchstart', listener);
+
+    return () => {
+      // handler();
+      document.removeEventListener('mousedown', listener);
+      document.removeEventListener('touchstart', listener);
+    };
+  }, [ref, handler]);
 };
 
 export default PostForm;
@@ -83,6 +126,12 @@ const ShoutArea = styled.textarea`
   }
 `;
 
+const PickerContainer = styled.div`
+  background-color: black;
+  position: absolute;
+  left: 40px;
+`;
+
 const Button = styled.button`
   position: absolute;
   top: 115px;
@@ -120,4 +169,7 @@ const Icon = styled.i`
   width: 20px;
   height: 20px;
   margin-right: 20px;
+  :hover {
+    cursor: pointer;
+  }
 `;
