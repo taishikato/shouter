@@ -84,11 +84,11 @@ const Div = styled.div`
 `;
 
 const Footer = styled.div`
-  border-top: 1px solid #304559;
   color: #8998a6;
   padding-top: 10px;
+  padding-right: 10px;
   height: 50px;
-  width: 180px;
+  width: 170px;
   position: absolute;
   bottom: 0;
   display: flex;

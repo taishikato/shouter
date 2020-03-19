@@ -82,7 +82,6 @@ const useOnClickOutside = (ref, handler) => {
     document.addEventListener('touchstart', listener);
 
     return () => {
-      // handler();
       document.removeEventListener('mousedown', listener);
       document.removeEventListener('touchstart', listener);
     };
@@ -95,8 +94,9 @@ const Container = styled.div`
   position: relative;
   height: 150px;
   width: 100%;
-  padding: 10px;
+  padding: 10px 0;
   background-color: #16202a;
+  border-bottom: 10px solid #304559;
 `;
 
 const UserIcon = styled.img`
