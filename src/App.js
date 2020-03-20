@@ -1,13 +1,13 @@
-import React, { useEffect, useContext, useState } from 'react';
-import { BrowserRouter, Switch } from 'react-router-dom';
+import React, {useEffect, useContext, useState} from 'react';
+import {BrowserRouter, Switch} from 'react-router-dom';
 import './App.css';
-import { LoginPage } from './components/LoginPage/LoginPage';
+import {LoginPage} from './components/LoginPage/LoginPage';
 import Timeline from './components/Timeline';
 import Profile from './components/Profile';
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
 import firebase from './plugins/firebase';
-import { AuthContext } from './contexts/AuthContext';
+import {AuthContext} from './contexts/AuthContext';
 
 function App() {
   const [loading, setLoading] = useState(false);
