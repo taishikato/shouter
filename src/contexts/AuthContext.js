@@ -1,16 +1,15 @@
-import React , { useState, createContext} from 'react';
+import React, { useState, createContext } from 'react';
 import firebase from '../plugins/firebase';
 
 export const AuthContext = createContext();
 
-const AuthContextProvider = (props) =>{
+const AuthContextProvider = (props) => {
     const [auth, setAuth] = useState(null);
-    const [loading, setLoading] = useState(true);
 
-    const login = async (user) => { 
-        setAuth(user)
-        if(user.displayName === null) {
-            try {   
+    const login = async (user) => {
+        setAuth(user);
+        if (user.displayName === null) {
+            try {
                 const data = await firebase
                     .firestore()
                     .collection('users')
@@ -21,15 +20,16 @@ const AuthContextProvider = (props) =>{
                     ...user,
                     displayName: userData.userName
                 })
-            } catch(err) {console.log(err)}
+            } catch (err) { console.log(err) }
         }
-        setLoading(false);
     }
+
     const logout = () => {
         setAuth(null)
     }
+
     return (
-        <AuthContext.Provider value={{auth, login, logout, loading}}>
+        <AuthContext.Provider value={{ auth, login, logout }}>
             {props.children}
         </AuthContext.Provider>
     )
