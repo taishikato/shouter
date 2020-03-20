@@ -110,12 +110,13 @@ const UserIcon = styled.img`
 
 const ShoutArea = styled.textarea`
   position: absolute;
+  top: 30px;
   left: 75px;
   width: 85%;
-  height: 100px;
+  height: 70px;
   outline: none;
-  resize: none;
   border: none;
+  resize: none;
   color: #bcd3ff;
   font-size: 15px;
   background-color: #16202a;
