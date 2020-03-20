@@ -11,7 +11,7 @@ import {AuthContext} from './contexts/AuthContext';
 
 function App() {
   const [loading, setLoading] = useState(false);
-  const { login } = useContext(AuthContext);
+  const {login} = useContext(AuthContext);
   useEffect(() => {
     setLoading(true);
     firebase.auth().onAuthStateChanged(user => {
