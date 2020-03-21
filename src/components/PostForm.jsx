@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, {useState, useContext, useRef, useEffect} from 'react';
 import styled from 'styled-components';
 import {AuthContext} from '../contexts/AuthContext';
@@ -78,6 +79,7 @@ const useOnClickOutside = (ref, handler) => {
       handler(event);
     };
 
+    // eslint-disable-next-line no-undef
     document.addEventListener('mousedown', listener);
     document.addEventListener('touchstart', listener);
 

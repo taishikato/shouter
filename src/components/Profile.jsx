@@ -11,10 +11,15 @@ const Profile = () => {
   const {auth} = useContext(AuthContext);
   const {getLocation} = useContext(LocationContext);
   const [shoutData, setShoutData] = useState([]);
+  const [showMessage, setShowMessage] = useState(false);
 
   getLocation('/profile');
 
   useEffect(() => {
+    getUserShouts();
+  }, [shoutData]);
+
+  const getUserShouts = () => {
     let shouts = [];
     firebase
       .firestore()
@@ -30,10 +35,25 @@ const Profile = () => {
           });
         });
         setShoutData(shouts);
-        console.log('user shouts: ', shouts);
       })
       .catch(err => console.log(err));
-  }, [auth.uid]);
+  };
+
+  const deleteHandler = id => {
+    firebase
+      .firestore()
+      .collection('shouts')
+      .doc(id)
+      .delete()
+      .then(function() {
+        console.log('Document successfully deleted!');
+        setShowMessage(true);
+        getUserShouts();
+      })
+      .catch(function(error) {
+        console.error('Error removing document: ', error);
+      });
+  };
 
   return (
     <ProfileWrapper>
@@ -42,7 +62,7 @@ const Profile = () => {
         <ProfileSection>
           <ProfilePageTop />
           <ProfileFeedSection>
-            <ShoutComponent shoutData={shoutData} />
+            <ShoutComponent shoutData={shoutData} deleteShout={deleteHandler} />
           </ProfileFeedSection>
         </ProfileSection>
       </ProfileContainer>

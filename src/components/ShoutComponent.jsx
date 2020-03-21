@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import styled from 'styled-components';
 import {AuthContext} from '../contexts/AuthContext';
 
-const ShoutComponent = ({shoutData}) => {
+const ShoutComponent = ({shoutData, deleteShout}) => {
   const {auth} = useContext(AuthContext); //temporary set up as user
 
   return (
@@ -18,6 +18,7 @@ const ShoutComponent = ({shoutData}) => {
               <Icon className="fas fa-comment"></Icon>
               <Icon className="far fa-heart"></Icon>
               <Icon className="fas fa-share-alt"></Icon>
+              <Icon className="fas fa-trash" alt="Delete" onClick={() => deleteShout(shout.id)}></Icon>
             </SmallIcons>
           </ShoutArea>
         </Container>
