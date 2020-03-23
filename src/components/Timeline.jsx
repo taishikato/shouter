@@ -10,13 +10,13 @@ import ShoutComponent from './ShoutComponent';
 
 const Timeline = () => {
   const {logout} = useContext(AuthContext);
-  const {getLocation} = useContext(LocationContext);
+  const {setLocation} = useContext(LocationContext);
   const [shoutData, setShoutData] = useState([]);
 
-  getLocation('/timeline');
+  setLocation('/timeline');
 
   useEffect(() => {
-    let shouts = [];
+    const shouts = [];
     firebase
       .firestore()
       .collection('shouts')

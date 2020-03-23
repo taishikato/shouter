@@ -4,6 +4,7 @@ import {AuthContext} from '../contexts/AuthContext';
 
 const ShoutComponent = ({shoutData, deleteShout}) => {
   const {auth} = useContext(AuthContext); //temporary set up as user
+  console.log(auth);
 
   return (
     <>

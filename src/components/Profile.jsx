@@ -9,18 +9,18 @@ import ShoutComponent from './ShoutComponent';
 
 const Profile = () => {
   const {auth} = useContext(AuthContext);
-  const {getLocation} = useContext(LocationContext);
+  const {setLocation} = useContext(LocationContext);
   const [shoutData, setShoutData] = useState([]);
   const [showMessage, setShowMessage] = useState(false);
 
-  getLocation('/profile');
+  setLocation('/profile');
 
   useEffect(() => {
     getUserShouts();
   }, [shoutData]);
 
   const getUserShouts = () => {
-    let shouts = [];
+    const shouts = [];
     firebase
       .firestore()
       .collection('shouts')

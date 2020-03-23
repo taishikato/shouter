@@ -60,6 +60,7 @@ const Wrapper = styled.section`
   height: 380px;
   position: relative;
   background-color: ${props => props.theme.primBlue};
+  border-bottom: 10px solid #304559;
 `;
 const TopSection = styled.div`
   width: 100%;
