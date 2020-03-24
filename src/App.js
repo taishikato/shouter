@@ -8,6 +8,7 @@ import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
 import firebase from './plugins/firebase';
 import {AuthContext} from './contexts/AuthContext';
+import LocationContextProvider from './contexts/LocationContext';
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -20,16 +21,18 @@ function App() {
       }
       setLoading(false);
     });
-  }, []);
+  }, [login]);
 
   return (
-    <BrowserRouter>
-      <Switch>
-        <PublicRoute restricted={true} loading={loading} component={LoginPage} path="/" exact />
-        <PrivateRoute component={Timeline} path="/timeline" exact />
-        <PrivateRoute component={Profile} path="/profile" exact />
-      </Switch>
-    </BrowserRouter>
+    <LocationContextProvider>
+      <BrowserRouter>
+        <Switch>
+          <PublicRoute restricted={true} loading={loading} component={LoginPage} path="/" exact />
+          <PrivateRoute component={Timeline} path="/timeline" exact />
+          <PrivateRoute component={Profile} path="/profile" exact />
+        </Switch>
+      </BrowserRouter>
+    </LocationContextProvider>
   );
 }
 

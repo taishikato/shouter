@@ -1,6 +1,5 @@
 import React, {useContext} from 'react';
 import styled from 'styled-components';
-import firebase from '../plugins/firebase';
 import {AuthContext} from '../contexts/AuthContext';
 
 const ShoutComponent = ({shoutData}) => {

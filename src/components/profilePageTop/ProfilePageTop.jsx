@@ -4,6 +4,51 @@ import bg from './bg.png';
 import {ReactComponent as SVG} from './calender.svg';
 import {AuthContext} from '../../contexts/AuthContext';
 
+const ProfilePageTop = () => {
+  const {auth} = useContext(AuthContext);
+  const [profile, setProfile] = useState({
+    bgImg: bg,
+    profileImg: auth.photoURL,
+    userName: auth.displayName,
+    userId: auth.email,
+    joined: auth.metadata.creationTime.split(' ', 4).join(' '),
+    following: 0,
+    followers: 0,
+  });
+  return (
+    <ThemeProvider theme={theme}>
+      <Wrapper>
+        <TopSection>
+          <TopImg url={profile.bgImg} />
+        </TopSection>
+        <ProfileImg url={profile.profileImg} />
+        <BotSection>
+          <NameWrapper>
+            <Title>{profile.userName}</Title>
+            <SubTitle>{profile.userId}</SubTitle>
+          </NameWrapper>
+          <DateWrapper>
+            <SVG width="16px" />
+            <SubTitle margin>Joined {profile.joined}</SubTitle>
+          </DateWrapper>
+          <FollowWrapper>
+            <FollowInnerWrapper>
+              <SubTitle color="white">{profile.following}</SubTitle>
+              <SubTitle margin>Following</SubTitle>
+            </FollowInnerWrapper>
+            <FollowInnerWrapper>
+              <SubTitle color="white">{profile.followers}</SubTitle>
+              <SubTitle margin>Followers</SubTitle>
+            </FollowInnerWrapper>
+          </FollowWrapper>
+        </BotSection>
+      </Wrapper>
+    </ThemeProvider>
+  );
+};
+
+export default ProfilePageTop;
+
 const theme = {
   primBlue: '#15202b',
   lightBlue: '#3c5366',
@@ -105,48 +150,3 @@ const FollowInnerWrapper = styled.div`
   height: 100%;
   display: flex;
 `;
-
-const ProfilePageTop = () => {
-  const {auth} = useContext(AuthContext);
-  const [profile, setProfile] = useState({
-    bgImg: bg,
-    profileImg: auth.photoURL,
-    userName: auth.displayName,
-    userId: auth.email,
-    joined: auth.metadata.creationTime.split(' ', 4).join(' '),
-    following: 0,
-    followers: 0,
-  });
-  return (
-    <ThemeProvider theme={theme}>
-      <Wrapper>
-        <TopSection>
-          <TopImg url={profile.bgImg} />
-        </TopSection>
-        <ProfileImg url={profile.profileImg} />
-        <BotSection>
-          <NameWrapper>
-            <Title>{profile.userName}</Title>
-            <SubTitle>{profile.userId}</SubTitle>
-          </NameWrapper>
-          <DateWrapper>
-            <SVG width="16px" />
-            <SubTitle margin>Joined {profile.joined}</SubTitle>
-          </DateWrapper>
-          <FollowWrapper>
-            <FollowInnerWrapper>
-              <SubTitle color="white">{profile.following}</SubTitle>
-              <SubTitle margin>Following</SubTitle>
-            </FollowInnerWrapper>
-            <FollowInnerWrapper>
-              <SubTitle color="white">{profile.followers}</SubTitle>
-              <SubTitle margin>Followers</SubTitle>
-            </FollowInnerWrapper>
-          </FollowWrapper>
-        </BotSection>
-      </Wrapper>
-    </ThemeProvider>
-  );
-};
-
-export default ProfilePageTop;

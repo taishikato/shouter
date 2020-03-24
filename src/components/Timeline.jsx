@@ -2,13 +2,17 @@ import React, {useContext, useState, useEffect} from 'react';
 import Sidebar from './Sidebar';
 import styled from 'styled-components';
 import {AuthContext} from '../contexts/AuthContext';
+import {LocationContext} from '../contexts/LocationContext';
 import firebase from '../plugins/firebase';
 import PostForm from './PostForm';
 import ShoutComponent from './ShoutComponent';
 
 const Timeline = () => {
-  const {auth, logout} = useContext(AuthContext);
+  const {logout} = useContext(AuthContext);
+  const {getLocation} = useContext(LocationContext);
   const [shoutData, setShoutData] = useState([]);
+
+  getLocation('/timeline');
 
   useEffect(() => {
     let shouts = [];
