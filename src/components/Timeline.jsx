@@ -43,7 +43,6 @@ const Timeline = () => {
             data: doc.data(),
             userData: users.map(entry => {
               if (entry.id == doc.data().userId) {
-                console.log('PASS');
                 return entry.userData;
               }
             }),
@@ -51,24 +50,8 @@ const Timeline = () => {
           });
         });
         setShoutData(shouts);
-        console.log('shouts: ', shouts);
       })
       .catch(err => console.log(err));
-
-    // const getUserData = id => {
-    //   return firebase
-    //     .firestore()
-    //     .collection('users')
-    //     .get()
-    //     .then(querySnapshot => {
-    //       querySnapshot.forEach(doc => {
-    //         console.log('id: ', doc.id);
-    //         if (doc.id == id) return doc.data();
-    //       });
-    //       setShoutData(shouts);
-    //     })
-    //     .catch(err => console.log(err));
-    // };
   }, []);
 
   const handleLogout = e => {
