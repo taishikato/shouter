@@ -16,6 +16,21 @@ const Timeline = () => {
   setLocation('/timeline');
 
   useEffect(() => {
+    const users = [];
+    firebase
+      .firestore()
+      .collection('users')
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          users.push({
+            id: doc.id,
+            userData: doc.data(),
+          });
+        });
+      })
+      .catch(err => console.log(err));
+
     const shouts = [];
     firebase
       .firestore()
@@ -26,6 +41,12 @@ const Timeline = () => {
         querySnapshot.forEach(doc => {
           shouts.push({
             data: doc.data(),
+            userData: users.map(entry => {
+              if (entry.id == doc.data().userId) {
+                console.log('PASS');
+                return entry.userData;
+              }
+            }),
             id: doc.id,
           });
         });
@@ -33,6 +54,21 @@ const Timeline = () => {
         console.log('shouts: ', shouts);
       })
       .catch(err => console.log(err));
+
+    // const getUserData = id => {
+    //   return firebase
+    //     .firestore()
+    //     .collection('users')
+    //     .get()
+    //     .then(querySnapshot => {
+    //       querySnapshot.forEach(doc => {
+    //         console.log('id: ', doc.id);
+    //         if (doc.id == id) return doc.data();
+    //       });
+    //       setShoutData(shouts);
+    //     })
+    //     .catch(err => console.log(err));
+    // };
   }, []);
 
   const handleLogout = e => {

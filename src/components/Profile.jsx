@@ -31,6 +31,12 @@ const Profile = () => {
         querySnapshot.forEach(doc => {
           shouts.push({
             data: doc.data(),
+            userData: [
+              {
+                userName: auth.displayName,
+                photoURL: auth.photoURL,
+              },
+            ],
             id: doc.id,
           });
         });

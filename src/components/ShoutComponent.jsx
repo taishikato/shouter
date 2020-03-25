@@ -4,15 +4,18 @@ import {AuthContext} from '../contexts/AuthContext';
 
 const ShoutComponent = ({shoutData, deleteShout}) => {
   const {auth} = useContext(AuthContext); //temporary set up as user
-  console.log(auth);
 
   return (
     <>
       {shoutData.map((shout, index) => (
         <Container key={index}>
-          <UserIcon src={auth.photoURL} alt="user-img" />
+          {/* user data only contains email and username :( */}
+          <UserIcon
+            src={!shout.userData[0] ? process.env.PUBLIC_URL + '/Shouter_logo.png' : shout.userData[0].photoURL}
+            alt="user-img"
+          />
           <ShoutArea>
-            <ShouterName>Name Test</ShouterName>
+            <ShouterName>{!shout.userData[0] ? 'No name' : shout.userData[0].userName}</ShouterName>
             <ShouterContext>{shout.data.text}</ShouterContext>
             <ShouterImage></ShouterImage>
             <SmallIcons>
