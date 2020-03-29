@@ -11,13 +11,16 @@ const Profile = () => {
   const {auth} = useContext(AuthContext);
   const {setLocation} = useContext(LocationContext);
   const [shoutData, setShoutData] = useState([]);
-  const [showMessage, setShowMessage] = useState(false);
-
-  setLocation('/profile');
+  const [messageDeleted, setMessageDeleted] = useState(false);
 
   useEffect(() => {
+    setLocation('/profile');
     getUserShouts();
-  }, [shoutData]);
+
+    return () => {
+      setMessageDeleted(false);
+    };
+  }, [messageDeleted]);
 
   const getUserShouts = () => {
     const shouts = [];
@@ -25,6 +28,7 @@ const Profile = () => {
       .firestore()
       .collection('shouts')
       .where('userId', '==', auth.uid)
+      .limit(20)
       .orderBy('createdAt', 'desc')
       .get()
       .then(querySnapshot => {
@@ -53,7 +57,7 @@ const Profile = () => {
       .delete()
       .then(function() {
         console.log('Document successfully deleted!');
-        setShowMessage(true);
+        setMessageDeleted(true);
         getUserShouts();
       })
       .catch(function(error) {

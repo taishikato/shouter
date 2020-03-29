@@ -12,10 +12,11 @@ const Timeline = () => {
   const {logout} = useContext(AuthContext);
   const {setLocation} = useContext(LocationContext);
   const [shoutData, setShoutData] = useState([]);
-
-  setLocation('/timeline');
+  const [shoutSubmit, setShoutSubmit] = useState(false);
 
   useEffect(() => {
+    setLocation('/timeline');
+
     const users = [];
     firebase
       .firestore()
@@ -35,6 +36,7 @@ const Timeline = () => {
     firebase
       .firestore()
       .collection('shouts')
+      .limit(20)
       .orderBy('createdAt', 'desc')
       .get()
       .then(querySnapshot => {
@@ -42,7 +44,7 @@ const Timeline = () => {
           shouts.push({
             data: doc.data(),
             userData: users.map(entry => {
-              if (entry.id == doc.data().userId) {
+              if (entry.id === doc.data().userId) {
                 return entry.userData;
               }
             }),
@@ -52,7 +54,11 @@ const Timeline = () => {
         setShoutData(shouts);
       })
       .catch(err => console.log(err));
-  }, []);
+
+    return () => {
+      setShoutSubmit(false);
+    };
+  }, [shoutSubmit]);
 
   const handleLogout = e => {
     e.preventDefault();
@@ -65,12 +71,16 @@ const Timeline = () => {
       .catch(err => console.log(err));
   };
 
+  const handleSubmit = e => {
+    e && setShoutSubmit(true);
+  };
+
   return (
     <TimelineWrapper>
       <TimelineContainer>
         <Sidebar handleClick={handleLogout} />
         <TimelineSection>
-          <PostForm />
+          <PostForm submitHandler={handleSubmit} />
           <TimelineFeedSection>
             <ShoutComponent shoutData={shoutData} />
           </TimelineFeedSection>

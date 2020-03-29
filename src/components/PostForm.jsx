@@ -6,7 +6,7 @@ import firebase from '../plugins/firebase';
 import getCurrentTimeStamp from '../plugins/getCurrentTimeStamp';
 import Picker from 'emoji-picker-react';
 
-const PostForm = () => {
+const PostForm = ({submitHandler}) => {
   const [text, setText] = useState('');
   const [isPickerOpen, setPickerOpen] = useState(false);
   const {auth} = useContext(AuthContext);
@@ -34,6 +34,7 @@ const PostForm = () => {
 
   const handleSubmit = async () => {
     await addShout(text);
+    submitHandler(true);
     setText('');
   };
 
