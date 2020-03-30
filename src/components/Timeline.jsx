@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import React, {useContext, useState, useEffect} from 'react';
 import Sidebar from './Sidebar';
 import styled from 'styled-components';
@@ -14,47 +13,40 @@ const Timeline = () => {
   const [shoutData, setShoutData] = useState([]);
   const [shoutSubmit, setShoutSubmit] = useState(false);
 
+  async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+      await callback(array[index], index, array);
+    }
+  }
+
   useEffect(() => {
     setLocation('/timeline');
-
-    const users = [];
-    firebase
-      .firestore()
-      .collection('users')
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          users.push({
-            id: doc.id,
-            userData: doc.data(),
-          });
-        });
-      })
-      .catch(err => console.log(err));
-
-    const shouts = [];
-    firebase
-      .firestore()
-      .collection('shouts')
-      .limit(20)
-      .orderBy('createdAt', 'desc')
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
+    const getShouts = async () => {
+      const shoutsQuerySnapshot = await firebase
+        .firestore()
+        .collection('shouts')
+        .orderBy('createdAt', 'desc')
+        .limit(20)
+        .get();
+      const shouts = [];
+      await asyncForEach(shoutsQuerySnapshot.docs, async doc => {
+        const shout = doc.data();
+        const userQuerySnapshot = await firebase
+          .firestore()
+          .collection('users')
+          .doc(shout.userId)
+          .get();
+        if (userQuerySnapshot.exists) {
           shouts.push({
-            data: doc.data(),
-            userData: users.map(entry => {
-              if (entry.id === doc.data().userId) {
-                return entry.userData;
-              }
-            }),
+            data: shout,
+            userData: userQuerySnapshot.data(),
             id: doc.id,
           });
-        });
-        setShoutData(shouts);
-      })
-      .catch(err => console.log(err));
-
+        }
+      });
+      setShoutData(shouts);
+    };
+    getShouts();
     return () => {
       setShoutSubmit(false);
     };

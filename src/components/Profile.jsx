@@ -13,41 +13,41 @@ const Profile = () => {
   const [shoutData, setShoutData] = useState([]);
   const [messageDeleted, setMessageDeleted] = useState(false);
 
+  async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+      await callback(array[index], index, array);
+    }
+  }
+
   useEffect(() => {
     setLocation('/profile');
+    const getUserShouts = async () => {
+      const shoutsQuerySnapshot = await firebase
+        .firestore()
+        .collection('shouts')
+        .where('userId', '==', auth.uid)
+        .orderBy('createdAt', 'desc')
+        .limit(20)
+        .get();
+      const shouts = [];
+      await asyncForEach(shoutsQuerySnapshot.docs, async doc => {
+        shouts.push({
+          data: doc.data(),
+          userData: {
+            userName: auth.displayName,
+            photoURL: auth.photoURL,
+          },
+          id: doc.id,
+        });
+      });
+      setShoutData(shouts);
+    };
     getUserShouts();
 
     return () => {
       setMessageDeleted(false);
     };
   }, [messageDeleted]);
-
-  const getUserShouts = () => {
-    const shouts = [];
-    firebase
-      .firestore()
-      .collection('shouts')
-      .where('userId', '==', auth.uid)
-      .limit(20)
-      .orderBy('createdAt', 'desc')
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          shouts.push({
-            data: doc.data(),
-            userData: [
-              {
-                userName: auth.displayName,
-                photoURL: auth.photoURL,
-              },
-            ],
-            id: doc.id,
-          });
-        });
-        setShoutData(shouts);
-      })
-      .catch(err => console.log(err));
-  };
 
   const deleteHandler = id => {
     firebase
@@ -58,7 +58,6 @@ const Profile = () => {
       .then(function() {
         console.log('Document successfully deleted!');
         setMessageDeleted(true);
-        getUserShouts();
       })
       .catch(function(error) {
         console.error('Error removing document: ', error);

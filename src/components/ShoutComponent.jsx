@@ -11,11 +11,11 @@ const ShoutComponent = ({shoutData, deleteShout}) => {
         <Container key={index}>
           {/* user data only contains email and username :( */}
           <UserIcon
-            src={!shout.userData[0] ? process.env.PUBLIC_URL + '/Shouter_logo.png' : shout.userData[0].photoURL}
+            src={!shout.userData.photoURL ? process.env.PUBLIC_URL + '/Shouter_logo.png' : shout.userData.photoURL}
             alt="user-img"
           />
           <ShoutArea>
-            <ShouterName>{!shout.userData[0] ? 'No name' : shout.userData[0].userName}</ShouterName>
+            <ShouterName>{!shout.userData ? 'No name' : shout.userData.userName}</ShouterName>
             <ShouterContext>{shout.data.text}</ShouterContext>
             <ShouterImage></ShouterImage>
             <SmallIcons>
