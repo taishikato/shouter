@@ -9,30 +9,48 @@ import ShoutComponent from './ShoutComponent';
 
 const Timeline = () => {
   const {logout} = useContext(AuthContext);
-  const {getLocation} = useContext(LocationContext);
+  const {setLocation} = useContext(LocationContext);
   const [shoutData, setShoutData] = useState([]);
+  const [shoutSubmit, setShoutSubmit] = useState(false);
 
-  getLocation('/timeline');
+  async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+      await callback(array[index], index, array);
+    }
+  }
 
   useEffect(() => {
-    let shouts = [];
-    firebase
-      .firestore()
-      .collection('shouts')
-      .orderBy('createdAt', 'desc')
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
+    setLocation('/timeline');
+    const getShouts = async () => {
+      const shoutsQuerySnapshot = await firebase
+        .firestore()
+        .collection('shouts')
+        .orderBy('createdAt', 'desc')
+        .limit(20)
+        .get();
+      const shouts = [];
+      await asyncForEach(shoutsQuerySnapshot.docs, async doc => {
+        const shout = doc.data();
+        const userQuerySnapshot = await firebase
+          .firestore()
+          .collection('users')
+          .doc(shout.userId)
+          .get();
+        if (userQuerySnapshot.exists) {
           shouts.push({
-            data: doc.data(),
+            data: shout,
+            userData: userQuerySnapshot.data(),
             id: doc.id,
           });
-        });
-        setShoutData(shouts);
-        console.log('shouts: ', shouts);
-      })
-      .catch(err => console.log(err));
-  }, []);
+        }
+      });
+      setShoutData(shouts);
+    };
+    getShouts();
+    return () => {
+      setShoutSubmit(false);
+    };
+  }, [shoutSubmit]);
 
   const handleLogout = e => {
     e.preventDefault();
@@ -45,12 +63,16 @@ const Timeline = () => {
       .catch(err => console.log(err));
   };
 
+  const handleSubmit = e => {
+    e && setShoutSubmit(true);
+  };
+
   return (
     <TimelineWrapper>
       <TimelineContainer>
         <Sidebar handleClick={handleLogout} />
         <TimelineSection>
-          <PostForm />
+          <PostForm submitHandler={handleSubmit} />
           <TimelineFeedSection>
             <ShoutComponent shoutData={shoutData} />
           </TimelineFeedSection>

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, {useState, useContext, useRef, useEffect} from 'react';
 import styled from 'styled-components';
 import {AuthContext} from '../contexts/AuthContext';
@@ -5,7 +6,7 @@ import firebase from '../plugins/firebase';
 import getCurrentTimeStamp from '../plugins/getCurrentTimeStamp';
 import Picker from 'emoji-picker-react';
 
-const PostForm = () => {
+const PostForm = ({submitHandler}) => {
   const [text, setText] = useState('');
   const [isPickerOpen, setPickerOpen] = useState(false);
   const {auth} = useContext(AuthContext);
@@ -33,6 +34,7 @@ const PostForm = () => {
 
   const handleSubmit = async () => {
     await addShout(text);
+    submitHandler(true);
     setText('');
   };
 
@@ -78,6 +80,7 @@ const useOnClickOutside = (ref, handler) => {
       handler(event);
     };
 
+    // eslint-disable-next-line no-undef
     document.addEventListener('mousedown', listener);
     document.addEventListener('touchstart', listener);
 

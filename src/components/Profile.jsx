@@ -9,31 +9,60 @@ import ShoutComponent from './ShoutComponent';
 
 const Profile = () => {
   const {auth} = useContext(AuthContext);
-  const {getLocation} = useContext(LocationContext);
+  const {setLocation} = useContext(LocationContext);
   const [shoutData, setShoutData] = useState([]);
+  const [messageDeleted, setMessageDeleted] = useState(false);
 
-  getLocation('/profile');
+  async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+      await callback(array[index], index, array);
+    }
+  }
 
   useEffect(() => {
-    let shouts = [];
+    setLocation('/profile');
+    const getUserShouts = async () => {
+      const shoutsQuerySnapshot = await firebase
+        .firestore()
+        .collection('shouts')
+        .where('userId', '==', auth.uid)
+        .orderBy('createdAt', 'desc')
+        .limit(20)
+        .get();
+      const shouts = [];
+      await asyncForEach(shoutsQuerySnapshot.docs, async doc => {
+        shouts.push({
+          data: doc.data(),
+          userData: {
+            userName: auth.displayName,
+            photoURL: auth.photoURL,
+          },
+          id: doc.id,
+        });
+      });
+      setShoutData(shouts);
+    };
+    getUserShouts();
+
+    return () => {
+      setMessageDeleted(false);
+    };
+  }, [messageDeleted]);
+
+  const deleteHandler = id => {
     firebase
       .firestore()
       .collection('shouts')
-      .where('userId', '==', auth.uid)
-      .orderBy('createdAt', 'desc')
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          shouts.push({
-            data: doc.data(),
-            id: doc.id,
-          });
-        });
-        setShoutData(shouts);
-        console.log('user shouts: ', shouts);
+      .doc(id)
+      .delete()
+      .then(function() {
+        console.log('Document successfully deleted!');
+        setMessageDeleted(true);
       })
-      .catch(err => console.log(err));
-  }, [auth.uid]);
+      .catch(function(error) {
+        console.error('Error removing document: ', error);
+      });
+  };
 
   return (
     <ProfileWrapper>
@@ -42,7 +71,7 @@ const Profile = () => {
         <ProfileSection>
           <ProfilePageTop />
           <ProfileFeedSection>
-            <ShoutComponent shoutData={shoutData} />
+            <ShoutComponent shoutData={shoutData} deleteShout={deleteHandler} />
           </ProfileFeedSection>
         </ProfileSection>
       </ProfileContainer>

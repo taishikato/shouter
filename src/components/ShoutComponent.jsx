@@ -2,22 +2,27 @@ import React, {useContext} from 'react';
 import styled from 'styled-components';
 import {AuthContext} from '../contexts/AuthContext';
 
-const ShoutComponent = ({shoutData}) => {
+const ShoutComponent = ({shoutData, deleteShout}) => {
   const {auth} = useContext(AuthContext); //temporary set up as user
 
   return (
     <>
       {shoutData.map((shout, index) => (
         <Container key={index}>
-          <UserIcon src={auth.photoURL} alt="user-img" />
+          {/* user data only contains email and username :( */}
+          <UserIcon
+            src={!shout.userData.photoURL ? process.env.PUBLIC_URL + '/Shouter_logo.png' : shout.userData.photoURL}
+            alt="user-img"
+          />
           <ShoutArea>
-            <ShouterName>Name Test</ShouterName>
+            <ShouterName>{!shout.userData ? 'No name' : shout.userData.userName}</ShouterName>
             <ShouterContext>{shout.data.text}</ShouterContext>
             <ShouterImage></ShouterImage>
             <SmallIcons>
               <Icon className="fas fa-comment"></Icon>
               <Icon className="far fa-heart"></Icon>
               <Icon className="fas fa-share-alt"></Icon>
+              <Icon className="fas fa-trash" alt="Delete" onClick={() => deleteShout(shout.id)}></Icon>
             </SmallIcons>
           </ShoutArea>
         </Container>
